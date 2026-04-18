@@ -64,14 +64,16 @@ Open `.env` and make sure it contains:
 
 ```text
 # PORT=3000  # local development only
-MONGODB_URI=mongodb+srv://skytrack_user:xnozdUDOqLfoTmDj@cluster0.scbmfwc.mongodb.net/skytrack?retryWrites=true&w=majority
-SESSION_SECRET=super-secret-key-123
+MONGODB_URI=mongodb+srv://<username>:<password>@<cluster-url>/<database>?retryWrites=true&w=majority
+SESSION_SECRET=replace-with-a-strong-random-secret
 EMAIL_HOST=smtp.example.com
 EMAIL_PORT=587
 EMAIL_USER=your_email@example.com
 EMAIL_PASS=your_email_password
 EMAIL_FROM="SkyTrack <no-reply@example.com>"
 ```
+
+Replace the placeholder MongoDB and session values with your own real credentials before starting the app.
 
 If you want password recovery emails to work, fill in the SMTP details with a working email provider.
 
