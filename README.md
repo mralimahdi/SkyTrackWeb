@@ -1,6 +1,7 @@
 # Traffic Management and Redirection Platform
 
 A full-stack web application for call center agents to generate tracking links, monitor social media traffic, and control smart redirection.
+live at https://skytrack-web-production.up.railway.app
 
 ## Features
 
