@@ -64,8 +64,8 @@ Open `.env` and make sure it contains:
 
 ```text
 PORT=3000
-MONGODB_URI=mongodb://localhost:27017/traffic_redirect
-SESSION_SECRET=supersecret
+MONGODB_URI=mongodb+srv://skytrack_user:xnozdUDOqLfoTmDj@cluster0.scbmfwc.mongodb.net/skytrack?retryWrites=true&w=majority
+SESSION_SECRET=super-secret-key-123
 EMAIL_HOST=smtp.example.com
 EMAIL_PORT=587
 EMAIL_USER=your_email@example.com
@@ -152,4 +152,6 @@ The app will create a default admin account automatically if none exists.
 
 ## Deployment
 
-Deploy to any Node.js host with MongoDB support. Configure the `MONGODB_URI` and `SESSION_SECRET` in `.env`.
+Deploy to any Node.js host with MongoDB support. Configure the `MONGODB_URI` and `SESSION_SECRET` in `.env` or in your host's environment settings.
+
+- On Render, do not hardcode `PORT` in your environment variables; the platform provides it automatically.

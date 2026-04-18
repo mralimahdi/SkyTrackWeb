@@ -12,6 +12,3 @@ services:
       - key: SESSION_SECRET
         scope: run
         value: ${SESSION_SECRET}
-      - key: PORT
-        scope: run
-        value: 3000
