@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | SkyTrack</title>
+    <link href="css/style.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  </head>
+  <body class="bg-sky-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+      <div class="container">
+        <a class="navbar-brand text-primary" href="/admin/dashboard">SkyTrack Admin</a>
+        <div class="ms-auto">
+          <a class="btn btn-outline-primary" href="/logout">Logout</a>
+        </div>
+      </div>
+    </nav>
+    <div class="container py-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h1 class="h3 text-primary">Admin Control Center</h1>
+          <p class="text-muted">Monitor agents, link performance, and system traffic.</p>
+        </div>
+        <a class="btn btn-primary" href="/admin/agents/new">Create Agent</a>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm p-4">
+            <h6 class="text-secondary">Agents</h6>
+            <p class="display-6 text-primary mb-0">24</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm p-4">
+            <h6 class="text-secondary">Live Links</h6>
+            <p class="display-6 text-primary mb-0">18</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm p-4">
+            <h6 class="text-secondary">Total Visits</h6>
+            <p class="display-6 text-primary mb-0">1,482</p>
+          </div>
+        </div>
+      </div>
+      <div class="row g-4 mt-4">
+        <div class="col-lg-7">
+          <div class="card border-0 shadow-sm p-4 h-100">
+            <h5>Agent Performance</h5>
+            <canvas id="adminChart" height="220"></canvas>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="card border-0 shadow-sm p-4 h-100">
+            <h5>Top Links</h5>
+            <ul class="list-group list-group-flush mt-3">
+              <li class="list-group-item bg-transparent border-top d-flex justify-content-between align-items-center">
+                <span>Spring Campaign</span>
+                <span class="badge bg-primary">420</span>
+              </li>
+              <li class="list-group-item bg-transparent border-top d-flex justify-content-between align-items-center">
+                <span>Facebook Offer</span>
+                <span class="badge bg-primary">318</span>
+              </li>
+              <li class="list-group-item bg-transparent border-top d-flex justify-content-between align-items-center">
+                <span>Video Ad Link</span>
+                <span class="badge bg-primary">260</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card border-0 shadow-sm p-4 mt-4">
+        <h5 class="mb-3">Recent Agents</h5>
+        <div class="table-responsive">
+          <table class="table align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Created</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Ali Khan</td>
+                <td>ali@example.com</td>
+                <td>Active</td>
+                <td>Apr 12</td>
+              </tr>
+              <tr>
+                <td>Sara Ahmed</td>
+                <td>sara@example.com</td>
+                <td>Active</td>
+                <td>Apr 10</td>
+              </tr>
+              <tr>
+                <td>Faizan Raza</td>
+                <td>faizan@example.com</td>
+                <td>Active</td>
+                <td>Apr 05</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const ctx = document.getElementById('adminChart');
+      if (ctx) {
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+              label: 'Visits',
+              data: [120, 180, 150, 220, 260, 330, 420],
+              borderColor: '#0d6efd',
+              backgroundColor: 'rgba(13, 110, 253, 0.15)',
+              fill: true,
+              tension: 0.35,
+            }],
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true } },
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

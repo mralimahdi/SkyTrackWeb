@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Agent | SkyTrack</title>
+    <link href="css/style.css" rel="stylesheet" />
+  </head>
+  <body class="bg-sky-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+      <div class="container">
+        <a class="navbar-brand text-primary" href="/admin/dashboard">SkyTrack Admin</a>
+        <div class="ms-auto">
+          <a class="btn btn-outline-primary" href="/logout">Logout</a>
+        </div>
+      </div>
+    </nav>
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <div class="card shadow-sm border-0 p-5">
+            <h1 class="h4 mb-4 text-primary">Create New Agent</h1>
+            <div id="errorMessage" class="alert alert-danger d-none"></div>
+            <form action="/admin/agents/new" method="POST">
+              <div class="mb-3">
+                <label class="form-label">Agent Name</label>
+                <input name="name" type="text" class="form-control" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input name="email" type="email" class="form-control" required />
+              </div>
+              <div class="mb-4">
+                <label class="form-label">Password</label>
+                <input name="password" type="password" class="form-control" required />
+              </div>
+              <button class="btn btn-primary w-100">Create Agent</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const error = params.get('error');
+      if (error) {
+        const message = error === 'exists' ? 'Email already in use.' : 'Failed to create agent. Please try again.';
+        const el = document.getElementById('errorMessage');
+        el.textContent = message;
+        el.classList.remove('d-none');
+      }
+    </script>
+  </body>
+</html>

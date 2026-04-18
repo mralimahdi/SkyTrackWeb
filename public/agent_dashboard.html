@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agent Dashboard | SkyTrack</title>
+    <link href="css/style.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  </head>
+  <body class="bg-sky-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+      <div class="container">
+        <a class="navbar-brand text-primary" href="/agent/dashboard">SkyTrack Agent</a>
+        <div class="ms-auto">
+          <a class="btn btn-outline-primary" href="/logout">Logout</a>
+        </div>
+      </div>
+    </nav>
+    <div class="container py-5">
+      <div class="row align-items-center mb-4">
+        <div class="col-md-8">
+          <h1 class="h3 text-primary">Hello, Agent</h1>
+          <p class="text-muted">Generate tracking links, monitor campaign performance, and view source analytics.</p>
+        </div>
+        <div class="col-md-4 text-md-end">
+          <a class="btn btn-primary" href="#createLink">Create Tracking Link</a>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card shadow-sm border-0 p-4">
+            <h6 class="text-secondary">Total Clicks</h6>
+            <p class="display-6 text-primary mb-0">864</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow-sm border-0 p-4">
+            <h6 class="text-secondary">Active Links</h6>
+            <p class="display-6 text-primary mb-0">12</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow-sm border-0 p-4">
+            <h6 class="text-secondary">Recent Sessions</h6>
+            <p class="display-6 text-primary mb-0">26</p>
+          </div>
+        </div>
+      </div>
+      <div class="row g-4 mt-4">
+        <div class="col-lg-7">
+          <div class="card shadow-sm border-0 p-4 h-100">
+            <h5>Traffic Sources</h5>
+            <canvas id="sourceChart" height="220"></canvas>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="card shadow-sm border-0 p-4 h-100">
+            <h5>Your Links</h5>
+            <ul class="list-group list-group-flush mt-3">
+              <li class="list-group-item bg-transparent border-top d-flex justify-content-between align-items-center">
+                <span>Facebook Video</span>
+                <span class="badge bg-primary">210</span>
+              </li>
+              <li class="list-group-item bg-transparent border-top d-flex justify-content-between align-items-center">
+                <span>Ad Campaign</span>
+                <span class="badge bg-primary">150</span>
+              </li>
+              <li class="list-group-item bg-transparent border-top d-flex justify-content-between align-items-center">
+                <span>Shared Link</span>
+                <span class="badge bg-primary">76</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card shadow-sm border-0 p-4 mt-4" id="createLink">
+        <h5 class="mb-3">Create New Tracking Link</h5>
+        <form action="/agent/links/new" method="POST">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Link Title</label>
+              <input name="title" class="form-control" placeholder="Facebook promo" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Target URL</label>
+              <input name="targetUrl" type="url" class="form-control" placeholder="https://example.com" required />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Campaign</label>
+              <input name="campaign" class="form-control" placeholder="Spring Sale" />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Traffic Source</label>
+              <select name="trafficSource" class="form-select">
+                <option value="social">Social</option>
+                <option value="facebook">Facebook</option>
+                <option value="instagram">Instagram</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Redirect Type</label>
+              <select name="redirectType" class="form-select">
+                <option value="302">Temporary (302)</option>
+                <option value="301">Permanent (301)</option>
+              </select>
+            </div>
+            <div class="col-12 form-check form-switch mt-2">
+              <input class="form-check-input" type="checkbox" id="landingEnabled" name="landingEnabled" checked />
+              <label class="form-check-label" for="landingEnabled">Show Facebook landing page</label>
+            </div>
+            <div class="col-12 text-end">
+              <button class="btn btn-primary">Create Link</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card shadow-sm border-0 p-4 mt-4">
+        <h5>Recent Visits</h5>
+        <div class="table-responsive mt-3">
+          <table class="table align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Source</th>
+                <th>Referer</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>facebook</td>
+                <td>facebook.com</td>
+                <td>10 min ago</td>
+              </tr>
+              <tr>
+                <td>instagram</td>
+                <td>instagram.com</td>
+                <td>22 min ago</td>
+              </tr>
+              <tr>
+                <td>direct</td>
+                <td>direct</td>
+                <td>45 min ago</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const ctx = document.getElementById('sourceChart');
+      if (ctx) {
+        new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Facebook', 'Instagram', 'Others'],
+            datasets: [{
+              data: [54, 28, 18],
+              backgroundColor: ['#0d6efd', '#6dd5ed', '#8ecae6'],
+            }],
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { position: 'bottom' } },
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

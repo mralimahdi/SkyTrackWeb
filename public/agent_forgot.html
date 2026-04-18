@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agent Password Reset | SkyTrack</title>
+    <link href="css/style.css" rel="stylesheet" />
+  </head>
+  <body class="bg-sky-light">
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card shadow-sm border-0 p-5">
+            <h1 class="h4 text-primary mb-4 text-center">Agent Password Reset</h1>
+            <div id="statusMessage" class="alert d-none"></div>
+            <form action="/agent/forgot" method="POST">
+              <div class="mb-3">
+                <label class="form-label">Account Email</label>
+                <input name="email" type="email" class="form-control" required />
+              </div>
+              <button class="btn btn-primary w-100">Send Reset Link</button>
+            </form>
+            <div class="text-center mt-3 text-muted">
+              <a href="/agent/login">Back to Login</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const status = params.get('status');
+      const el = document.getElementById('statusMessage');
+      if (status) {
+        el.classList.remove('d-none');
+        if (status === 'sent') {
+          el.className = 'alert alert-success';
+          el.textContent = 'If that email exists, a reset link has been sent.';
+        } else {
+          el.className = 'alert alert-danger';
+          el.textContent = 'Unable to send reset email. Please try again later.';
+        }
+      }
+    </script>
+  </body>
+</html>

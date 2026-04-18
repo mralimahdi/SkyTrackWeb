@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | SkyTrack</title>
+    <link href="css/style.css" rel="stylesheet" />
+  </head>
+  <body class="bg-sky-light">
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-md-7">
+          <div class="card shadow-sm border-0 p-5 text-center">
+            <div id="statusMessage" class="alert d-none mb-3"></div>
+            <h1 class="h3 text-primary mb-3">Welcome to SkyTrack</h1>
+            <p class="text-muted mb-4">Choose your panel and start managing traffic with a modern dashboard.</p>
+            <div class="d-grid gap-3">
+              <a href="/agent/login" class="btn btn-primary btn-lg">Agent Login</a>
+              <a href="/admin/login" class="btn btn-outline-primary btn-lg">Admin Login</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const statusEl = document.getElementById('statusMessage');
+      const status = params.get('reset');
+      if (status === 'success') {
+        statusEl.className = 'alert alert-success';
+        statusEl.textContent = 'Password reset completed. Please sign in using your new password.';
+        statusEl.classList.remove('d-none');
+      }
+    </script>
+  </body>
+</html>

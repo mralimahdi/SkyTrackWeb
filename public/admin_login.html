@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login | SkyTrack</title>
+    <link href="css/style.css" rel="stylesheet" />
+  </head>
+  <body class="bg-sky-light">
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-md-5">
+          <div class="card shadow-sm border-0 p-5">
+            <h1 class="h4 text-primary mb-4 text-center">Admin Login</h1>
+            <div id="errorMessage" class="alert alert-danger d-none"></div>
+            <form action="/admin/login" method="POST">
+              <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input name="username" type="text" class="form-control" required />
+              </div>
+              <div class="mb-4">
+                <label class="form-label">Password</label>
+                <input name="password" type="password" class="form-control" required />
+              </div>
+              <button class="btn btn-primary w-100">Sign In</button>
+            </form>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <a href="/agent/login" class="text-muted">Agent Login</a>
+              <a href="/admin/forgot" class="text-primary">Forgot Password?</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const error = params.get('error');
+      if (error) {
+        const message = error === 'invalid' ? 'Invalid credentials, try again.' : 'Login failed. Please try again.';
+        const el = document.getElementById('errorMessage');
+        el.textContent = message;
+        el.classList.remove('d-none');
+      }
+    </script>
+  </body>
+</html>
