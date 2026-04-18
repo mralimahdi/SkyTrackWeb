@@ -63,7 +63,7 @@ mongod --dbpath "C:\data\db"
 Open `.env` and make sure it contains:
 
 ```text
-PORT=3000
+# PORT=3000  # local development only
 MONGODB_URI=mongodb+srv://skytrack_user:xnozdUDOqLfoTmDj@cluster0.scbmfwc.mongodb.net/skytrack?retryWrites=true&w=majority
 SESSION_SECRET=super-secret-key-123
 EMAIL_HOST=smtp.example.com
@@ -74,6 +74,8 @@ EMAIL_FROM="SkyTrack <no-reply@example.com>"
 ```
 
 If you want password recovery emails to work, fill in the SMTP details with a working email provider.
+
+> Important: Do not set `PORT` manually in Railway or other production hosts. The platform provides the correct port automatically.
 
 ### 6. Start backend server
 
