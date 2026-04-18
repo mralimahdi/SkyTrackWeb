@@ -13,11 +13,15 @@ if (!process.env.MONGODB_URI) {
 mongoose.connect(mongodbUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});
-
-mongoose.connection.on('connected', () => {
-  console.log('MongoDB connected');
-});
+  tls: true,
+  serverSelectionTimeoutMS: 10000,
+})
+  .then(() => {
+    console.log('MongoDB connected');
+  })
+  .catch((err) => {
+    console.error('MongoDB connection error:', err);
+  });
 
 mongoose.connection.on('error', (err) => {
   console.error('MongoDB connection error:', err);
